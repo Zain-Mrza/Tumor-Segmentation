@@ -113,4 +113,3 @@ dependencies:
       - typing-extensions==4.16.0
       - wcwidth==0.9.1
       - wrapt==2.4.1
-prefix: /rhome/zmirz004/bigdata/.conda/envs/tumor_segmentation
