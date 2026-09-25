@@ -1,4 +1,4 @@
-# TumorSegmentation
+# Tumor-Segmentation
 
 Training-free, point-prompted tumor segmentation using frozen **DINOv3** features with **INSID3 positional debiasing**.
 
