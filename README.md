@@ -6,7 +6,7 @@ Click a few points on a tumor (and optionally on background), and the model retu
 
 ## Why debiasing?
 
-DINOv3 patch embeddings encode *where* a patch is as well as *what* it contains. As a result, cosine similarity between patches is dominated by spatial proximity: a tumor patch on the left side of an image looks dissimilar to a tumor patch on the right, simply because they are far apart.
+DINOv3 patch embeddings encode _where_ a patch is as well as _what_ it contains. As a result, cosine similarity between patches is dominated by spatial proximity: a tumor patch on the left side of an image looks dissimilar to a tumor patch on the right, simply because they are far apart.
 
 Following [INSID3](https://github.com/visinf/insid3), we remove this positional signal:
 
@@ -18,7 +18,10 @@ The debiased features now match patches by content, not location.
 
 ![Debiasing example](assets/debaised.png)
 
-*Left: input image. Middle: similarity map from raw DINOv3 features. Right: similarity map from debiased DINOv3 features.*
+_Left: input image. Middle: similarity map from raw DINOv3 features. Right: similarity map from debiased DINOv3 features._
+
+Towards the top of the middle image (near prompted point), there is a large similarity on background patches. This would impact thresholding performance. The debiasing method on the right removes this position-based similarity.
+On the debiased similarity map (right), matching tumors receive a higher similarity score than the raw similarity map (middle).
 
 ## How segmentation works
 
@@ -53,14 +56,14 @@ python insid3_point_prompt.py --image assets/frame.jpg --repo_dir external/dinov
 
 Points are `x,y` in original image pixels. Useful flags:
 
-| Flag | Description |
-| --- | --- |
-| `--pos` / `--neg` | Positive / negative prompt points |
-| `--thresh` | Similarity threshold for the mask (default `0`) |
-| `--image_size` / `--patch_grid` | Encoder resolution (default `768`) |
-| `--svd_components` | Size of the positional subspace (default `500`) |
-| `--no_debias` | Use raw DINOv3 features for comparison |
-| `--out_sim` | Save the raw similarity map as `.npy` |
+| Flag                            | Description                                     |
+| ------------------------------- | ----------------------------------------------- |
+| `--pos` / `--neg`               | Positive / negative prompt points               |
+| `--thresh`                      | Similarity threshold for the mask (default `0`) |
+| `--image_size` / `--patch_grid` | Encoder resolution (default `768`)              |
+| `--svd_components`              | Size of the positional subspace (default `500`) |
+| `--no_debias`                   | Use raw DINOv3 features for comparison          |
+| `--out_sim`                     | Save the raw similarity map as `.npy`           |
 
 ### Python
 
