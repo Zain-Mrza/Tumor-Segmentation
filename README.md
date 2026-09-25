@@ -18,7 +18,9 @@ The debiased features now match patches by content, not location.
 
 ![Debiasing example](assets/debaised.png)
 
-*Left: input image. Middle: similarity map from raw DINOv3 features. Right: similarity map from debiased DINOv3 features.*
+*Left: input image. Middle: similarity map from raw DINOv3 features. Right: similarity map from debiased DINOv3 features.
+Towards the top of the middle image (near prompted point), there is a large similarity on background patches. This would impact thresholding performance. The debiasing method on the right removes this position-based similarity.
+On the debiased similarity map (right), matching tumors receive a higher similarity score than the raw similarity map (middle).*
 
 ## How segmentation works
 
